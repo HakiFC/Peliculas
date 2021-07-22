@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model Peliculas.Web.Models.PeliculasModel
+
+<div class="jumbotron">
+    <h1 style="text-align:center">@Model.Titulo</h1>
+</div>
+
+
+@for (int i = 0; i < Model.Peliculas.Count() - 1; i = i + 4)
+{
+    <div class="row">
+        @for (int j = 0; j < 4; j++) {
+            <div class="col-md-3">
+                <a href="../Pelicula/Index?id=@Model.Peliculas.ElementAt(i + j).id"><img src="https://image.tmdb.org/t/p/w185@(Model.Peliculas.ElementAt(i + j).poster_path)" height="230" class="center-block" title="@Model.Peliculas.ElementAt(i + j).title" /></a>
+                @if (Model.Titulo == "Mejor calificadas")
+                {
+                    <p style="color: white; text-align: center">@Model.Peliculas.ElementAt(i + j).vote_average / @Model.Peliculas.ElementAt(i + j).vote_count votos</p>
+                }
+                else if (Model.Titulo == "Más populares")
+                {
+                    <p style="color: white; text-align: center">Popularidad: @Model.Peliculas.ElementAt(i + j).popularity</p>
+                }
+            </div>
+        }
+    </div>
+    <div class="row" style="height:20px"></div>
+}
